@@ -1,0 +1,708 @@
+========================= AURA TDA Run Module Test =========================
+Tests started at 2026-10-26 14:03:42 UTC
+Branch: UKICLOENA-3190
+Pull Request ID: 28
+
+=============================== TFLint scan ================================
+No issues found.
+
+================================ Trivy scan ================================
+tests/defaults: 0 failed, 18 passed
+tests/external_key: 0 failed, 18 passed
+tests/import_key_material: 0 failed, 18 passed
+tests/standard: 0 failed, 18 passed
+tests/with_policy: 0 failed, 18 passed
+
+============================== Terraform init ==============================
+Terraform successfully initialised.
+
+============================ Terraform validate ============================
+Success! The configuration is valid.
+
+
+============================== OpenTofu init ===============================
+OpenTofu successfully initialised.
+
+============================ OpenTofu validate =============================
+Success! The configuration is valid.
+
+
++++++++++++++++++++++++++ Test Directory: defaults +++++++++++++++++++++++++
+
+============================== OpenTofu plan ===============================
+
+OpenTofu Plan result for 'defaults': Success
+
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.kms.aws_kms_key.this[0] will be created
+  + resource "aws_kms_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 30
+      + description                        = "Basic key with all defaults"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "kms:Update*",
+                          + "kms:UntagResource",
+                          + "kms:TagResource",
+                          + "kms:ScheduleKeyDeletion",
+                          + "kms:Revoke*",
+                          + "kms:Put*",
+                          + "kms:List*",
+                          + "kms:ImportKeyMaterial",
+                          + "kms:Get*",
+                          + "kms:Enable*",
+                          + "kms:Disable*",
+                          + "kms:Describe*",
+                          + "kms:Delete*",
+                          + "kms:Create*",
+                          + "kms:CancelKeyDeletion",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-aura-iac-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyAdministration"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "eu-west-2"
+      + rotation_period_in_days            = 365
+      + tags                               = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+      + tags_all                           = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "DeployedByAURA"       = "true"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+=============================== Wizcli scan ================================
+No results found:
+	IaC, SAST, OS packages, Libraries, Applications, CPEs, End of life components, Malware, Sensitive data, Secrets, Host misconfigurations, License Findings (Software Management), Patch Management Findings (Software Management), AI Models
+
+Scan summary:
+	Verdict: PASSED_BY_POLICY
+	Failed Policies: 
+	Evaluated Policies: experian_egso_iac_audit_cicd_policy
+	Wiz Cloud Event: https://app.wiz.io/findings/cicd-scans#~%2528cicd_scan~%2527006adf5e-270b-879f-af7f-88a29abf8001%252A2c2026-10-26T14%2525%25252A3a05%2525%25252A3a50.995922225Z%2527%2529
+
+Wiz.io IaC scan result for 'defaults': Success
+
+
++++++++++++++++++++++++ Test Directory: external_key +++++++++++++++++++++++
+
+============================== OpenTofu plan ===============================
+
+OpenTofu Plan result for 'external_key': Success
+
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.kms.aws_kms_alias.this["testalias"] will be created
+  + resource "aws_kms_alias" "this" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/eits-tf-aws-kms-defaults-testalias-kms"
+      + name_prefix    = (known after apply)
+      + region         = "eu-west-2"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # module.kms.aws_kms_external_key.this[0] will be created
+  + resource "aws_kms_external_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + deletion_window_in_days            = 30
+      + description                        = "Basic key with all defaults"
+      + enabled                            = true
+      + expiration_model                   = (known after apply)
+      + id                                 = (known after apply)
+      + key_spec                           = (known after apply)
+      + key_state                          = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "kms:Update*",
+                          + "kms:UntagResource",
+                          + "kms:TagResource",
+                          + "kms:ScheduleKeyDeletion",
+                          + "kms:Revoke*",
+                          + "kms:Put*",
+                          + "kms:List*",
+                          + "kms:ImportKeyMaterial",
+                          + "kms:Get*",
+                          + "kms:Enable*",
+                          + "kms:Disable*",
+                          + "kms:Describe*",
+                          + "kms:Delete*",
+                          + "kms:Create*",
+                          + "kms:CancelKeyDeletion",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-aura-iac-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyAdministration"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "eu-west-2"
+      + tags                               = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+      + tags_all                           = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "DeployedByAURA"       = "true"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+    }
+
+Plan: 2 to add, 0 to change, 0 to destroy.
+
+=============================== Wizcli scan ================================
+No results found:
+	IaC, SAST, OS packages, Libraries, Applications, CPEs, End of life components, Malware, Sensitive data, Secrets, Host misconfigurations, License Findings (Software Management), Patch Management Findings (Software Management), AI Models
+
+Scan summary:
+	Verdict: PASSED_BY_POLICY
+	Failed Policies: 
+	Evaluated Policies: experian_egso_iac_audit_cicd_policy
+	Wiz Cloud Event: https://app.wiz.io/findings/cicd-scans#~%2528cicd_scan~%2527006adf5e-640b-880b-83bd-b6e060d98001%252A2c2026-10-26T14%2525%25252A3a06%2525%25252A3a51.144928128Z%2527%2529
+
+Wiz.io IaC scan result for 'external_key': Success
+
+
++++++++++++++++++++ Test Directory: import_key_material ++++++++++++++++++++
+
+============================== OpenTofu plan ===============================
+
+OpenTofu Plan result for 'import_key_material': Success
+
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.kms.aws_kms_alias.this["testalias"] will be created
+  + resource "aws_kms_alias" "this" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/eits-tf-aws-kms-defaults-testalias-kms"
+      + name_prefix    = (known after apply)
+      + region         = "eu-west-2"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # module.kms.aws_kms_external_key.this[0] will be created
+  + resource "aws_kms_external_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + deletion_window_in_days            = 30
+      + description                        = "Basic key with all defaults"
+      + enabled                            = true
+      + expiration_model                   = (known after apply)
+      + id                                 = (known after apply)
+      + key_material_base64                = (sensitive value)
+      + key_spec                           = (known after apply)
+      + key_state                          = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "kms:Update*",
+                          + "kms:UntagResource",
+                          + "kms:TagResource",
+                          + "kms:ScheduleKeyDeletion",
+                          + "kms:Revoke*",
+                          + "kms:Put*",
+                          + "kms:List*",
+                          + "kms:ImportKeyMaterial",
+                          + "kms:Get*",
+                          + "kms:Enable*",
+                          + "kms:Disable*",
+                          + "kms:Describe*",
+                          + "kms:Delete*",
+                          + "kms:Create*",
+                          + "kms:CancelKeyDeletion",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-aura-iac-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyAdministration"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "eu-west-2"
+      + tags                               = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+      + tags_all                           = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "DeployedByAURA"       = "true"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+    }
+
+  # module.kms.aws_kms_grant.this["s3_logging"] will be created
+  + resource "aws_kms_grant" "this" {
+      + grant_id          = (known after apply)
+      + grant_token       = (sensitive value)
+      + grantee_principal = "arn:aws:iam::471112883441:role/BUAdministratorAccessRole"
+      + id                = (known after apply)
+      + key_id            = (known after apply)
+      + name              = "s3-logging-grant"
+      + operations        = [
+          + "Decrypt",
+          + "Encrypt",
+          + "GenerateDataKey",
+        ]
+      + region            = "eu-west-2"
+      + retire_on_delete  = false
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+=============================== Wizcli scan ================================
+No results found:
+	IaC, SAST, OS packages, Libraries, Applications, CPEs, End of life components, Malware, Sensitive data, Secrets, Host misconfigurations, License Findings (Software Management), Patch Management Findings (Software Management), AI Models
+
+Scan summary:
+	Verdict: PASSED_BY_POLICY
+	Failed Policies: 
+	Evaluated Policies: experian_egso_iac_audit_cicd_policy
+	Wiz Cloud Event: https://app.wiz.io/findings/cicd-scans#~%2528cicd_scan~%2527006adf5e-960b-80f7-a0af-b7388a6f8001%252A2c2026-10-26T14%2525%25252A3a07%2525%25252A3a40.552627952Z%2527%2529
+
+Wiz.io IaC scan result for 'import_key_material': Success
+
+
++++++++++++++++++++++++++ Test Directory: standard +++++++++++++++++++++++++
+
+============================== OpenTofu plan ===============================
+
+OpenTofu Plan result for 'standard': Success
+
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.kms.aws_kms_alias.this["testalias"] will be created
+  + resource "aws_kms_alias" "this" {
+      + arn            = (known after apply)
+      + id             = (known after apply)
+      + name           = "alias/eits-tf-aws-kms-test-testalias-kms"
+      + name_prefix    = (known after apply)
+      + region         = "eu-west-2"
+      + target_key_arn = (known after apply)
+      + target_key_id  = (known after apply)
+    }
+
+  # module.kms.aws_kms_grant.this["s3_logging"] will be created
+  + resource "aws_kms_grant" "this" {
+      + grant_id          = (known after apply)
+      + grant_token       = (sensitive value)
+      + grantee_principal = "arn:aws:iam::471112883441:role/BUAdministratorAccessRole"
+      + id                = (known after apply)
+      + key_id            = (known after apply)
+      + name              = "s3-logging-grant"
+      + operations        = [
+          + "Decrypt",
+          + "Encrypt",
+          + "GenerateDataKey",
+        ]
+      + region            = "eu-west-2"
+      + retire_on_delete  = false
+    }
+
+  # module.kms.aws_kms_key.this[0] will be created
+  + resource "aws_kms_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 30
+      + description                        = "Example KMS key for S3 buckets"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = "kms:*"
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:root",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyOwner"
+                    },
+                  + {
+                      + Action    = [
+                          + "kms:Update*",
+                          + "kms:UntagResource",
+                          + "kms:TagResource",
+                          + "kms:ScheduleKeyDeletion",
+                          + "kms:Revoke*",
+                          + "kms:Put*",
+                          + "kms:List*",
+                          + "kms:ImportKeyMaterial",
+                          + "kms:Get*",
+                          + "kms:Enable*",
+                          + "kms:Disable*",
+                          + "kms:Describe*",
+                          + "kms:Delete*",
+                          + "kms:Create*",
+                          + "kms:CancelKeyDeletion",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:root",
+                              + "arn:aws:iam::471112883441:role/eec-aws-infrastructure-deployment-role",
+                              + "arn:aws:iam::471112883441:role/eec-aws-aura-iac-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyAdministration"
+                    },
+                  + {
+                      + Action    = [
+                          + "kms:ReEncrypt*",
+                          + "kms:GenerateDataKey*",
+                          + "kms:Encrypt",
+                          + "kms:DescribeKey",
+                          + "kms:Decrypt",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-infrastructure-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyUsageUsers"
+                    },
+                  + {
+                      + Action    = [
+                          + "kms:ReEncrypt*",
+                          + "kms:GenerateDataKey*",
+                          + "kms:Encrypt",
+                          + "kms:DescribeKey",
+                          + "kms:Decrypt",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "logging.s3.amazonaws.com"
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyUsageServices"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "eu-west-2"
+      + rotation_period_in_days            = 365
+      + tags                               = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+      + tags_all                           = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "DeployedByAURA"       = "true"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+    }
+
+Plan: 3 to add, 0 to change, 0 to destroy.
+
+=============================== Wizcli scan ================================
+No results found:
+	IaC, SAST, OS packages, Libraries, Applications, CPEs, End of life components, Malware, Sensitive data, Secrets, Host misconfigurations, License Findings (Software Management), Patch Management Findings (Software Management), AI Models
+
+Scan summary:
+	Verdict: PASSED_BY_POLICY
+	Failed Policies: 
+	Evaluated Policies: experian_egso_iac_audit_cicd_policy
+	Wiz Cloud Event: https://app.wiz.io/findings/cicd-scans#~%2528cicd_scan~%2527006adf5e-d00b-874a-b803-8c24c8638001%252A2c2026-10-26T14%2525%25252A3a08%2525%25252A3a39.715725842Z%2527%2529
+
+Wiz.io IaC scan result for 'standard': Success
+
+
++++++++++++++++++++++++ Test Directory: with_policy ++++++++++++++++++++++++
+
+============================== OpenTofu plan ===============================
+
+OpenTofu Plan result for 'with_policy': Success
+
+
+OpenTofu used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  + create
+
+OpenTofu will perform the following actions:
+
+  # module.kms.aws_kms_key.this[0] will be created
+  + resource "aws_kms_key" "this" {
+      + arn                                = (known after apply)
+      + bypass_policy_lockout_safety_check = false
+      + customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      + deletion_window_in_days            = 30
+      + description                        = "Example KMS key that merges policy and key_users"
+      + enable_key_rotation                = true
+      + id                                 = (known after apply)
+      + is_enabled                         = true
+      + key_id                             = (known after apply)
+      + key_usage                          = "ENCRYPT_DECRYPT"
+      + multi_region                       = false
+      + policy                             = jsonencode(
+            {
+              + Statement = [
+                  + {
+                      + Action    = [
+                          + "kms:GenerateDataKey",
+                          + "kms:Encrypt",
+                          + "kms:DescribeKey",
+                          + "kms:Decrypt",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + Service = "s3.amazonaws.com"
+                        }
+                      + Resource  = "*"
+                      + Sid       = "ExampleS3ServicePolicy"
+                    },
+                  + {
+                      + Action    = [
+                          + "kms:Update*",
+                          + "kms:UntagResource",
+                          + "kms:TagResource",
+                          + "kms:ScheduleKeyDeletion",
+                          + "kms:Revoke*",
+                          + "kms:Put*",
+                          + "kms:List*",
+                          + "kms:ImportKeyMaterial",
+                          + "kms:Get*",
+                          + "kms:Enable*",
+                          + "kms:Disable*",
+                          + "kms:Describe*",
+                          + "kms:Delete*",
+                          + "kms:Create*",
+                          + "kms:CancelKeyDeletion",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-aura-iac-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyAdministration"
+                    },
+                  + {
+                      + Action    = [
+                          + "kms:ReEncrypt*",
+                          + "kms:GenerateDataKey*",
+                          + "kms:Encrypt",
+                          + "kms:DescribeKey",
+                          + "kms:Decrypt",
+                        ]
+                      + Effect    = "Allow"
+                      + Principal = {
+                          + AWS = [
+                              + "arn:aws:iam::471112883441:role/eec-aws-infrastructure-deployment-role",
+                              + "arn:aws:iam::471112883441:role/BUAdministratorAccessRole",
+                            ]
+                        }
+                      + Resource  = "*"
+                      + Sid       = "KeyUsageUsers"
+                    },
+                ]
+              + Version   = "2012-10-17"
+            }
+        )
+      + region                             = "eu-west-2"
+      + rotation_period_in_days            = 365
+      + tags                               = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+      + tags_all                           = {
+          + "AppID"                = "24139"
+          + "BusinessUnit"         = "EITS"
+          + "CostString"           = "2000.GB.139.607511"
+          + "CreatedWith"          = "Terraform"
+          + "DeployedByAURA"       = "true"
+          + "Environment"          = "tst"
+          + "ResourceOwner"        = "eitsukicloud@experian.com"
+          + "eitsce:modulename"    = "eits-tf-aws-kms"
+          + "eitsce:moduleversion" = "local"
+          + "eitsce:tagschecked"   = "true"
+        }
+    }
+
+Plan: 1 to add, 0 to change, 0 to destroy.
+
+=============================== Wizcli scan ================================
+No results found:
+	IaC, SAST, OS packages, Libraries, Applications, CPEs, End of life components, Malware, Sensitive data, Secrets, Host misconfigurations, License Findings (Software Management), Patch Management Findings (Software Management), AI Models
+
+Scan summary:
+	Verdict: PASSED_BY_POLICY
+	Failed Policies: 
+	Evaluated Policies: experian_egso_iac_audit_cicd_policy
+	Wiz Cloud Event: https://app.wiz.io/findings/cicd-scans#~%2528cicd_scan~%2527006adf5f-0a0b-8916-9f25-aff599638001%252A2c2026-10-26T14%2525%25252A3a09%2525%25252A3a37.966982844Z%2527%2529
+
+Wiz.io IaC scan result for 'with_policy': Success
+
+
+******************************* Test Summary *******************************
+terraform_init:           SUCCESS
+terraform_validate:       SUCCESS
+opentofu_init:            SUCCESS
+opentofu_validate:        SUCCESS
+tflint:                   SUCCESS
+trivy:                    SUCCESS
+defaults plan:            SUCCESS
+defaults wiz:             SUCCESS
+external_key plan:        SUCCESS
+external_key wiz:         SUCCESS
+import_key_material plan: SUCCESS
+import_key_material wiz:  SUCCESS
+standard plan:            SUCCESS
+standard wiz:             SUCCESS
+with_policy plan:         SUCCESS
+with_policy wiz:          SUCCESS
+
+16 passed, 0 failed
